@@ -11,6 +11,7 @@ tokens {
   RETURN;
   STATEMENTS;
   FUNC_CALL;
+  FOREACH;
   EXP;
   EXP_LIST;
   ID_LIST;
@@ -79,6 +80,7 @@ statement
   |  functionCall ';'? -> functionCall
   |  ifStatement  
   |  forStatement  
+  |  forEachStatement  
   |  whileStatement 
   ;
 
@@ -96,6 +98,7 @@ functionCall
   | 'println' expressionBracketed -> ^(FUNC_CALL 'println' expressionBracketed)
   | 'size' expressionBracketed -> ^(FUNC_CALL 'size' expressionBracketed)
   | 'assert' expressionBracketed -> ^(FUNC_CALL 'assert' expressionBracketed)
+  | 'alert' expressionBracketed -> ^(FUNC_CALL 'alert' expressionBracketed)
   |  COMMAND -> ^(FUNC_CALL OS COMMAND)
   ;
 
@@ -120,6 +123,11 @@ elseBlock
   
 forStatement
   : 'for'^ '('! IDENT '<-'! expression 'to'! expression ')'! blockBracketed
+  ;
+  
+forEachStatement
+  : ('for' 'each' | 'foreach') '(' IDENT '<-' expression ')' blockBracketed
+    -> ^(FOREACH IDENT expression blockBracketed)
   ; 
   
 whileStatement

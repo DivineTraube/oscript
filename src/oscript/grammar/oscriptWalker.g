@@ -62,6 +62,7 @@ statement returns [Node node]
   |  functionCall   {node = $functionCall.node;}
   |  ifStatement    {node = $ifStatement.node;}
   |  forStatement   {node = $forStatement.node;}
+  |  forEachStatement   {node = $forEachStatement.node;}
   |  whileStatement {node = $whileStatement.node;}
   ;
  
@@ -102,6 +103,10 @@ ifStatement returns [Node node]
 forStatement returns [Node node]
   : ^('for' var=IDENT  from=expression  to=expression  b=block)
     { node = new ForNode($var.text, $from.node, $to.node, $b.node, currentScope); }
+  ; 
+forEachStatement returns [Node node]
+  : ^(FOREACH var=IDENT  in=expression b=block)
+    { node = new ForEachNode($var.text, $in.node, $b.node, currentScope); }
   ; 
   
 whileStatement returns [Node node]

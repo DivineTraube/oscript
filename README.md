@@ -1,6 +1,9 @@
 # Oscript
 Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interpreter sind in Java und [ATNLR](http://www.antlr.org/) geschrieben. Die Implementierung folgt in vielen Teilen einem (sehr guten) [Tutorial von Bart Kiers](http://bkiers.blogspot.de/2011/03/creating-your-own-programming-language.html), einem [Screencast von Scott Stanchfield](http://javadude.com/articles/antlr3xtut/) und dem obligatorischen Buch des ANTLR Stammvaters [Terence Parr](http://www.amazon.de/Definitive-ANTLR-Reference-Guide-Domain-specific/dp/0978739256/).
 
+## Ausprobieren?
+Im Package oscript liegt eine Interpreter Klasse. Die führt das sample.script aus dem Hauptverzeichnis aus, oder nimmt eine Script-Pfad als Kommandozeilenparameter..
+
 ## Wie sieht sie aus?
 
 	//Sprachsyntax: ein bisschen aus Scala, JavaScript, Ruby
@@ -36,10 +39,12 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	l1 = ["a", "b"]
 	l2 = [1,2,3, ["abc", [1.3, -2]]]
 	assert(2 in l2)
-	assert([1,2] + 3 == [1,2,3])
+	assert(["Kuh"] in ["Schaf", ["Kuh"]])
+	//Listen konkatenieren:
+	assert([1,2] + [3] == [1,2,3])
 	assert([2]*3 == [2,2,2])
 	assert(size([1,2,3]) == 3)
-	assert([1,2,3] -3 == [1,2])
+	assert([1,2,3] - [3] == [1,2])
 	
 	//Indexzugriff: nullindiziert und multidimensional
 	assert(l1[0] == "a")
@@ -64,6 +69,11 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	timesTwo(21)
 	assert(wert == 21)
 	
+	//Funktionen dürfen benutzt werden bevor sie im Quelltext auftauchen (anders als in Python)
+	assert(theFuture() == "is here")
+	def theFuture() { return "is here" }
+	
+	
 	//Rekursion:
 	def fak(n) {
 		if(n == 1) 	{ return 1; }
@@ -76,34 +86,27 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	def b() { return "it's me!" }
 	assert(a() == "it's me!")
 	
+	//Quicksort: noch etwas umständlich, was fehlt sind map, filter, reduce
+	println(quicksort([24, 3.14159, 23,4,1,5,3,213,4,12,3,24,124,325,5,36,673,67,546456,3,354,73265]))
 	
-	print(quicksort([24,23,4,1,5,3,213,4,12,3,24,124,325,5,36,673,67,546456,3,354,73265]))
 	def quicksort(liste) {
 		if(size(liste) > 1) {
-			sides = partition(liste-liste[0], liste[0])
-			return concat(quicksort(sides[0]) + liste[0], quicksort(sides[1]))
+			pivot = liste[0]
+			sides = partition(liste-[pivot], pivot)
+			return quicksort(sides[0]) + [pivot] + quicksort(sides[1])
 		} else {
 			return liste
 		}
 	}
 	
-	def concat(a,b) {
-		if( size(a) == 0 ){ return a }
-		if( size(b) == 0 ){ return b }
-		for (i <- 0 to (size(b) -1)) {
-			a = a + b[i]
-		}
-		return a
-	}
-	
 	def partition(liste, middle) {
 		smaller = []
 		greater = []
-		for (i <- 0 to (size(liste) -1)) {
-			if(liste[i] < middle) {
-				smaller = smaller + liste[i]
+		for each (elem <- liste) {
+			if(elem < middle) {
+				smaller = smaller + [elem]
 			} else {
-				greater = greater + liste[i]
+				greater = greater + [elem]
 			}
 		}
 		return [smaller, greater]
@@ -113,9 +116,16 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	//For-Schleife: von, bis
 	values = []
 	for (i <- 1 to 10) {
-		values = values + i
+		values = values + [i]
 	}
 	assert(size(values) == i)
+	
+	//For-Each: iterieren über Listen
+	values = []
+	foreach (elem <- [1,2,3,4,5]) {
+		values = values + [elem]	
+	}
+	assert(size(values) == 5)
 	
 	//While-Schleife
 	fakultät = 1
@@ -128,6 +138,7 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	
 	//Vergleichsoperatoren
 	assert(3 < 4)
+	//Lexikographischer Vergleich
 	assert("Alpha" < "Beta")
 	assert(5 <= 6)
 	assert(9 > 8)
@@ -136,10 +147,10 @@ Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interp
 	
 	//Boolesche Operatoren
 	assert(!(1 == 2 || 1 < 0) && (1 in [1,2,3]))
-	//Boolersche Literale
+	//Boolesche Literale
 	assert(true && !false)
 	
-	//Aufrufe an das Betriebssystem (Windows: Powershell, x: Bash)
-	//dirs = os { ls }
-	//println(dirs);
-
+	//Aufrufe an das Betriebssystem (Windows: Powershell, ~x: Bash)
+	dirs = os { ls }
+	println(dirs);
+	

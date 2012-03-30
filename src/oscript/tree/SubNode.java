@@ -25,9 +25,9 @@ public class SubNode implements Node {
         }
 
         //Liste
-        if(a.isList()) {
+        if(a.isList() && b.isList()) {
             List<Value> list = a.asList();
-            list.remove(b);
+            list.removeAll(b.asList());
             return new Value(list);
         }
 

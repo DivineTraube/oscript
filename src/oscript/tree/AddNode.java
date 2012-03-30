@@ -19,15 +19,15 @@ public class AddNode implements Node {
 		Value a = lhs.evaluate();  
 	    Value b = rhs.evaluate();  
 	  
-	    //Adition
+	    //Addition
 	    if(a.isNumber() && b.isNumber()) {  
 	      return new Value(a.asDouble() + b.asDouble());  
 	    }  
 	  
-	    //Element konkatenieren
-	    if(a.isList()) {  
+	    //Listen konkatenieren
+	    if(a.isList() && b.isList()) {  
 	      List<Value> list = a.asList();  
-	      list.add(b);  
+	      list.addAll(b.asList());  
 	      return new Value(list);  
 	    }  
 	  
