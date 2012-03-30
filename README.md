@@ -27,6 +27,8 @@ Im Package oscript liegt eine Interpreter Klasse. Die führt das sample.script au
 	//Klammern: Pflicht. Grund: kein Dangling Else
 	if( 42 != (39 + 3)){
 		assert(false) 
+	} else if( 42 == "42"){
+	 	assert(false)
 	} else {
 		assert(true)
 	}
@@ -74,7 +76,7 @@ Im Package oscript liegt eine Interpreter Klasse. Die führt das sample.script au
 	//Funktionen: Call-by-Value
 	def timesTwo(x) { x = 2 *x }
 	wert = 21
-	timesTwo(21)
+	timesTwo(wert)
 	assert(wert == 21)
 	
 	//Funktionen dürfen benutzt werden bevor sie im Quelltext auftauchen (anders als in Python)
