@@ -1,6 +1,8 @@
 # Oscript
 Eine dynamische, schwach-typisierte, interpretierte Programmiersprache.
+
 Scalas Syntax ist nichts dagegen, Assembler wirkt im Performance-Vergleich wie mit `eval` ausgeführter JavaScript Code und Google und Facebook haben bereits ihre Backends darauf umgestellt.
+
 Lexer, Parser und Interpreter sind in Java und [ANTLR](http://www.antlr.org/) geschrieben. Die Implementierung folgt in vielen Teilen einem (sehr guten) [Tutorial von Bart Kiers](http://bkiers.blogspot.de/2011/03/creating-your-own-programming-language.html), einem [Screencast von Scott Stanchfield](http://javadude.com/articles/antlr3xtut/) und dem obligatorischen Buch des ANTLR Stammvaters [Terence Parr](http://www.amazon.de/Definitive-ANTLR-Reference-Guide-Domain-specific/dp/0978739256/).
 
 ## Ausprobieren?
