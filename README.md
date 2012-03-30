@@ -1,5 +1,5 @@
 # Oscript
-Eine dynamische, schwach-typisierte Programmiersprache. Lexer, Parser und Interpreter sind in Java und [ATNLR](http://www.antlr.org/) geschrieben. Die Implementierung folgt in vielen Teilen einem (sehr guten) [Tutorial von Bart Kiers](http://bkiers.blogspot.de/2011/03/creating-your-own-programming-language.html), einem [Screencast von Scott Stanchfield](http://javadude.com/articles/antlr3xtut/) und dem obligatorischen Buch des ANTLR Stammvaters [Terence Parr](http://www.amazon.de/Definitive-ANTLR-Reference-Guide-Domain-specific/dp/0978739256/).
+Eine dynamische, schwach-typisierte, interpretierte Programmiersprache. Lexer, Parser und Interpreter sind in Java und [ATNLR](http://www.antlr.org/) geschrieben. Die Implementierung folgt in vielen Teilen einem (sehr guten) [Tutorial von Bart Kiers](http://bkiers.blogspot.de/2011/03/creating-your-own-programming-language.html), einem [Screencast von Scott Stanchfield](http://javadude.com/articles/antlr3xtut/) und dem obligatorischen Buch des ANTLR Stammvaters [Terence Parr](http://www.amazon.de/Definitive-ANTLR-Reference-Guide-Domain-specific/dp/0978739256/).
 
 ## Ausprobieren?
 Im Package oscript liegt eine Interpreter Klasse. Die führt das sample.script aus dem Hauptverzeichnis aus, oder nimmt eine Script-Pfad als Kommandozeilenparameter..
